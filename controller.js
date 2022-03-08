@@ -17,7 +17,16 @@ const addNote = (note) => {
     }
 }
 
-const deleteNote = () => {
+const deleteNote = (id) => {
+    const find = data.findIndex(note => note.id === id)
+    
+    if (find === -1) return undefined
+    
+    data.splice(find, 1)
+
+    return {
+        message: 'Eliminado'
+    }
 
 }
 

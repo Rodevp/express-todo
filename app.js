@@ -4,7 +4,10 @@ const route = require('express').Router()
 
 //controllers
 const {
-    getAllNotes, getNote, addNote
+    getAllNotes,
+    getNote,
+    addNote,
+    deleteNote
 } = require('./controller')
 
 app.use( express.json() )
@@ -25,8 +28,6 @@ route.get('/:id', (req, res) => {
     const id = Number( req.params.id )
     const note = getNote(id)
 
-    console.log({note})
-    
     if (note === undefined) return res.status(400).json({message: 'nota no encontrada'})
     
     return res.status(200).json( { message: 'nota encontrada', note } )
@@ -35,10 +36,20 @@ route.get('/:id', (req, res) => {
 
 route.post('/add/', (req, res) => {
     const body = req.body 
-    console.log({body})
     const note = addNote(body)
     return res.json({message: 'creado', note}).status(201)
 })
+
+route.delete('/:id', (req, res) => {
+    const id = Number( req.params.id )
+    const note = deleteNote(id)
+
+    if (note === undefined) return res.status(400).json({message: 'nota no encontrada'})
+    
+    return res.status(200).json(note)
+})
+
+
 
 app.use(route)
 
