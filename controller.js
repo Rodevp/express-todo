@@ -30,11 +30,17 @@ const deleteNote = (id) => {
 
 }
 
-const updateNote = () => {
+const updateNote = (id, newData) => {
 
-}
+    const find = data.findIndex(note => note.id === id)
+    
+    if (find === -1) return undefined
 
-const createNote = () => {
+    data.splice(find, 1, newData)
+
+    return {
+        message: 'Editado'
+    }
 
 }
 
@@ -43,7 +49,6 @@ module.exports = {
     addNote,
     deleteNote,
     updateNote,
-    createNote,
     getAllNotes,
     getNote
 }

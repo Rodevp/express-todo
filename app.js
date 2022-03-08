@@ -7,7 +7,8 @@ const {
     getAllNotes,
     getNote,
     addNote,
-    deleteNote
+    deleteNote,
+    updateNote
 } = require('./controller')
 
 app.use( express.json() )
@@ -43,6 +44,16 @@ route.post('/add/', (req, res) => {
 route.delete('/:id', (req, res) => {
     const id = Number( req.params.id )
     const note = deleteNote(id)
+
+    if (note === undefined) return res.status(400).json({message: 'nota no encontrada'})
+    
+    return res.status(200).json(note)
+})
+
+route.put('/:id', (req, res) => {
+    const id = Number( req.params.id )
+    const body = req.body
+    const note = updateNote(id, body)
 
     if (note === undefined) return res.status(400).json({message: 'nota no encontrada'})
     
