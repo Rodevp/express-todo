@@ -4,7 +4,7 @@ const route = require('express').Router()
 
 //controllers
 const {
-    getAllNotes
+    getAllNotes, getNote
 } = require('./controller')
 
 app.use( express.json() )
@@ -13,10 +13,23 @@ route.get('/',  (req, res) => {
     const notes = getAllNotes()
 
     if(notes.length === 0) {
-        return res.json( { message: 'No hay notas' } ).status(204)
+        return res.status(200).json( { message: 'No hay notas' } )
     }
     
-    return res.json( { message: 'ok', notes } ).status(200)
+    return res.status(200).json( { message: 'ok', notes } )
+
+})
+
+
+route.get('/:id', (req, res) => {
+    const id = Number( req.params.id )
+    const note = getNote(id)
+
+    console.log({note})
+    
+    if (note === undefined) return res.status(400).json({message: 'nota no encontrada'})
+    
+    return res.status(200).json( { message: 'nota encontrada', note } )
 
 })
 

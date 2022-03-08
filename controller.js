@@ -4,8 +4,9 @@ const getAllNotes = () => {
     return data
 }
 
-const getNote = () => {
-
+const getNote = (id) => {
+    const note = data.find(note => note.id === id)
+    return note
 }
 
 const addNote = () => {
