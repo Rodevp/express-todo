@@ -9,8 +9,12 @@ const getNote = (id) => {
     return note
 }
 
-const addNote = () => {
-
+const addNote = (note) => {
+    data.push(note)
+    return {
+        message: 'nota creada',
+        note 
+    }
 }
 
 const deleteNote = () => {

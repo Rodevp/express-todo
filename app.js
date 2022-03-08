@@ -4,7 +4,7 @@ const route = require('express').Router()
 
 //controllers
 const {
-    getAllNotes, getNote
+    getAllNotes, getNote, addNote
 } = require('./controller')
 
 app.use( express.json() )
@@ -31,6 +31,13 @@ route.get('/:id', (req, res) => {
     
     return res.status(200).json( { message: 'nota encontrada', note } )
 
+})
+
+route.post('/add/', (req, res) => {
+    const body = req.body 
+    console.log({body})
+    const note = addNote(body)
+    return res.json({message: 'creado', note}).status(201)
 })
 
 app.use(route)
